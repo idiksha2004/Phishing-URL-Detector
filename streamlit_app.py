@@ -91,30 +91,37 @@ def extract_basic_url_features(url):
 
 with tab3:
     st.header("🌐 Predict from URL Input")
-    url_to_test = st.text_input("Paste a URL to classify")
+    url_to_test = st.text_input("Paste a URL to classify", key="url_classify")
 
     if url_to_test:
-        features_extracted = extract_basic_url_features(url_to_test)
-        input_df = pd.DataFrame([features_extracted])
+        parsed_url = urlparse(url_to_test)
+        domain = parsed_url.hostname.lower() if parsed_url.hostname else ""
 
-        for f in features:
-            if f not in input_df.columns:
-                input_df[f] = 0
-
-        prediction = model.predict(input_df)[0]
-        if prediction == 1:
-            st.error("⚠️ This URL is classified as **Phishing**.")
+        whitelist_domains = ['microsoft.com', 'google.com', 'amazon.com', 'wikipedia.org', 'openai.com', 'linkedin.com']
+        if any(whitelist in domain for whitelist in whitelist_domains):
+            st.info("⚪ This is a known safe domain. Prediction skipped.")
         else:
-            st.success("✅ This URL is classified as **Legitimate**.")
+            features_extracted = extract_basic_url_features(url_to_test)
+            complete_input = {f: features_extracted.get(f, 0) for f in features}
+            input_df = pd.DataFrame([complete_input])
+
+            prediction = model.predict(input_df)[0]
+            if prediction == 1:
+                st.error("⚠️ This URL is classified as **Phishing**.")
+            else:
+                st.success("✅ This URL is classified as **Legitimate**.")
 
 # Tab 4: Link Preview
 with tab4:
     st.header("🔎 Link Preview Checker")
-    url_input = st.text_input("Enter a URL to preview")
+    url_input = st.text_input("Enter a URL to preview", key="link_preview")
 
     if url_input:
         try:
-            response = requests.get(url_input, timeout=5)
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+            }
+            response = requests.get(url_input, headers=headers, timeout=5)
             soup = BeautifulSoup(response.content, 'html.parser')
 
             title = soup.title.string if soup.title else "No title found"
