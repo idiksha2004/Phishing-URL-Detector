@@ -26,10 +26,8 @@ Whether you're uploading batches, analyzing single URLs, or previewing link cont
 ---
 
 ## 🧪 Demo Screenshots
+![image](https://github.com/user-attachments/assets/5ad81e8d-2f3a-4b51-8a01-b86d81d53626)
 
-![UI Screenshot 1](https://via.placeholder.com/800x400?text=Manual+Input+Tab)
-![UI Screenshot 2](https://via.placeholder.com/800x400?text=URL+Classifier+Tab)
-![UI Screenshot 3](https://via.placeholder.com/800x400?text=CSV+Batch+Prediction)
 
 ---
 
@@ -69,7 +67,7 @@ streamlit run streamlit_app_final.py
 
 ## 🤝 Contributors
 
-- 👤 [Your Name](https://github.com/your-username) – Developer & Designer
+- 👤 Diksha(https://github.com/idiksha2004) – Developer & Designer
 
 ---
 
