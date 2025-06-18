@@ -61,7 +61,7 @@ streamlit run streamlit_app_final.py
 
 ## 🌐 Live Deployment
 
-> 🔗 App is hosted live on [Streamlit Cloud](https://your-app-link.streamlit.app)
+> 🔗 App is hosted live on [Streamlit Cloud](https://phishing-url-detector-du69scdbb8pqjjy3mk6fob.streamlit.app/)
 
 ---
 
